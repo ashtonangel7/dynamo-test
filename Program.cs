@@ -82,13 +82,20 @@ namespace DynamoTest
 				LastName = "Ang"
 			};
 
+			var p2 = new Person
+			{
+				Name = "John",
+				LastName = "Doe"
+			};
+
 			var region = RegionEndpoint.AFSouth1;
 
 			using (var dynamoDb = new DynamoDb(region))
 			{
 				await dynamoDb.Put("test", "key", "Ashton", person);
+				await dynamoDb.Put("test", "key", "John", p2);
 
-				var res = await dynamoDb.Get<Person>("test", "key", "Ashton");
+				var res = await dynamoDb.Get<Person>("test", "key", "John");
 				Console.WriteLine(res);
 			}
 		}
